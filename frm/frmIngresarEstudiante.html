@@ -1,0 +1,97 @@
+<html>
+<head>
+<script src="../js/IngresarMundial.js">
+</script>
+<title>Tienda de Computadores</title>
+</head>
+	<body background="../img/images.jpg" style="background-position:center center; background-repeat:no-repeat; background-size:cover; background-attachment:fixed;">
+		
+	 <form action="../src/IngresarMundial.php" method="post" name="estudiante" onSubmit=  "validarIngreso(this)" >
+	  <center><b>Tienda de Computadores</b></center><br>
+
+	      <center><img src = "../img/imagen1.jpg" width="400" height="400"></center>
+
+	       <table border ="2" align="center">
+		  <tr>
+		     <td>
+  		          <label> ID </label> 
+ 	  	     </td>
+  		     <td>
+			  <input name="txtId" type="text" id="txtpais">
+ 	  	     </td>
+  		  </tr>
+		  <tr>
+		     <td>
+			  <label> Usuario </label>
+ 	  	     </td>
+  		     <td>
+			  <input name="txtUsu" type="text" id="txtpj"><br>
+ 	  	     </td>
+  		  </tr>	
+           <tr>
+		     <td>
+			  <label>Procesador </label>
+ 	  	     </td>
+  		     <td>
+			  <input name="txtPro" type="text" id="txtt" ><br>
+ 	  	     </td>
+  		  </tr>	
+           <tr>
+		     <td>
+			  <label> Memoria </label>
+ 	  	     </td>
+  		     <td>
+			  <input name="txtMem" type="text" id="txte"><br>
+ 	  	     </td>
+  		  </tr>	
+           <tr>
+		     <td>
+			  <label> Disco Duro </label>
+ 	  	     </td>
+  		     <td>
+			  <input name="txtDis" type="text" id="txtd"><br>
+ 	  	     </td>
+  		  </tr>	
+           <tr>
+		     <td>
+			  <label> Tarjeta de Video </label>
+ 	  	     </td>
+  		     <td>
+			  <input name="txtTar" type="text" id="txtgf"><br>
+ 	  	     </td>
+  		  </tr>	
+           <tr>
+		     <td>
+			  <label> Board </label>
+ 	  	     </td>
+  		     <td>
+			  <input name="txtBoa" type="text" id="txtgf"><br>
+ 	  	     </td>
+  		  </tr>	
+           <tr>
+		     <td>
+			  <label> Valor </label>
+ 	  	     </td>
+  		     <td>
+			  <input name="txtVal" type="text" id="txtgf"><br>
+ 	  	     </td>
+  		  </tr>	
+		 </table>
+      	     <center>
+		  <input type="submit" name="btnIngresar" value="Ingresar">
+		  <input type="reset" name="btnLimpiar" value="Limpiar">
+		  <img src="../img/pdf.gif" onClick="generarPDF();">
+          <img src="../img/pdf.gif" onClick="generarPDFs();">
+             </center>
+
+	</form>
+    <center><form action="../src/buscar.php" method="post">
+    <label>Consultar ID:</label><br>
+    <input type="text" id="busca" name="busca"/>
+    <input type="submit" value="Buscar" id="btnBuscar" >
+    </form></center>
+	</body>
+
+ 
+
+</html>

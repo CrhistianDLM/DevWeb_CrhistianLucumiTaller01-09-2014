@@ -1,0 +1,10 @@
+--BD: dbestudiante
+
+
+--crea tabla infoestudiante
+
+create table infoestudiante(
+  idestudiante int,
+  nombre varchar(30)
+);
+
