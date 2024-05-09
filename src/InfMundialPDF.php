@@ -1,21 +1,28 @@
 <?php
 
- //Código para incluir las librerias
+ //Cï¿½digo para incluir las librerias
  include_once("conexion.php");
  include('MyFPDF.php');
 
- //Conexión con el servidor
+ //Conexiï¿½n con el servidor
   $link=ConectarseServidor();
 
- //Conexión con la base de datos
+ //Conexiï¿½n con la base de datos
   ConectarseBaseDatos($link);
 
  //realiza consulta a la base de datos
- $sql = "select * from dwejer  order by id"; 
+ $sql = "select id,
+ user_id as usuario,
+ processor as procesador,
+ memoria, 
+ disco as disco_duro,
+ tarjeta as tarjeta_video,
+ board,
+ valor from computadoras  order by id"; 
      
-  $result=mysql_query($sql,$link);
+  $result=mysqli_query($link, $sql);
 
-   //inclusión de rutinas para crear informes PDF
+   //inclusiï¿½n de rutinas para crear informes PDF
    $pdf=new MyFPDF();
    $pdf->AddPage('P');
    $pdf->SetFont('Arial','B',11);
@@ -38,7 +45,7 @@
     $pdf->SetFont('Arial','',10);
 
     //impresion de datos obtenidos desde la BD
-	 while($row = mysql_fetch_array($result)){
+	 while($row = mysqli_fetch_array($result)){
        //   $pdf->Cell(30);	
   	  $pdf->Cell(15,8,$row["id"],1,0,'C');
          $pdf->Cell(26,8,$row["usuario"],1,0,'C');
@@ -53,7 +60,7 @@
       }//fin del while	
     
      //libera memoria
- 	mysql_free_result ($result);
+ 	mysqli_free_result ($result);
 
     //genera el PDF en el Navegador
   //  $pdf->Output();  

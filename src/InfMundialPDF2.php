@@ -1,21 +1,26 @@
 <?php
 
- //Código para incluir las librerias
+ //Cï¿½digo para incluir las librerias
  include_once("conexion.php");
  include('MyFPDF.php');
 
- //Conexión con el servidor
+ //Conexiï¿½n con el servidor
   $link=ConectarseServidor();
 
- //Conexión con la base de datos
+ //Conexiï¿½n con la base de datos
   ConectarseBaseDatos($link);
 
  //realiza consulta a la base de datos
- $sql = "select * from dwejer2  order by hora"; 
+ $sql = "select 
+  date as fecha,
+  hour as hora,
+  name as usuario,
+  description as descripcion
+ from usuarios  order by hora"; 
      
-  $result=mysql_query($sql,$link);
+  $result=mysqli_query($link, $sql);
 
-   //inclusión de rutinas para crear informes PDF
+   //inclusiï¿½n de rutinas para crear informes PDF
    $pdf=new MyFPDF();
    $pdf->AddPage('P');
    $pdf->SetFont('Arial','B',11);
@@ -35,19 +40,19 @@
     $pdf->SetFont('Arial','',10);
 
     //impresion de datos obtenidos desde la BD
-	 while($row = mysql_fetch_array($result)){
+	 while($row = mysqli_fetch_array($result)){
        //   $pdf->Cell(30);	
   	  $pdf->Cell(20,15,$row["fecha"],1,0,'C');
          $pdf->Cell(26,15,$row["hora"],1,0,'C');
          $pdf->Cell(26,15,$row["usuario"],1,0,'C');
-         $pdf->Cell(130,15,$row["decripcion"],1,1,'C');
+         $pdf->Cell(130,15,$row["descripcion"],1,1,'C');
     
 
 	 
       }//fin del while	
     
      //libera memoria
- 	mysql_free_result ($result);
+ 	mysqli_free_result ($result);
 
     //genera el PDF en el Navegador
   //  $pdf->Output();  

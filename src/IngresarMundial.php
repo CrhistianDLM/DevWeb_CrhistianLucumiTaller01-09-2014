@@ -1,100 +1,105 @@
 <HTML>
 <title>
-   Estudiante
+	Estudiante
 </title>
 
 <BODY>
-<?php
-	/*Código para incluir las librerias*/
+	<?php
+	/*Cï¿½digo para incluir las librerias*/
 	include_once("conexion.php");
+	include_once("UserModel.php");
 
-	/*Recuperación de variables*/
-	$id   =  $_REQUEST["txtId"];	
-        $usuario =  $_REQUEST["txtUsu"];
-		$procesador  =  $_REQUEST["txtPro"];	
-        $memoria  =  $_REQUEST["txtMem"];
-		$disco  =  $_REQUEST["txtDis"];	
-        $tarjeta =  $_REQUEST["txtTar"];	
-        $board =  $_REQUEST["txtBoa"];	
-        $valor =  $_REQUEST["txtVal"];	
-			
-      
-			
-	/*Conexión con el servidor*/
-	$link=ConectarseServidor();
+	/*Recuperaciï¿½n de variables*/
+	$id   =  $_REQUEST["txtId"];
+	$usuario =  $_REQUEST["txtUsu"];
+	$procesador  =  $_REQUEST["txtPro"];
+	$memoria  =  $_REQUEST["txtMem"];
+	$disco  =  $_REQUEST["txtDis"];
+	$tarjeta =  $_REQUEST["txtTar"];
+	$board =  $_REQUEST["txtBoa"];
+	$valor =  $_REQUEST["txtVal"];
 
-	/*Conexión con la base de datos*/
+
+
+	/*Conexiï¿½n con el servidor*/
+	$link = ConectarseServidor();
+
+	/*Conexiï¿½n con la base de datos*/
 	ConectarseBaseDatos($link);
 
-	/*Expresión SQL para insertar datos en una tabla*/
- 	$consulta="insert into dwejer values( $id,'$usuario', '$procesador', '$memoria', '$disco', '$tarjeta', '$board', $valor )";
-	
-$datee=getdate();
-$hora=date("g - H - a");
-$fecha= date("d")."-".date("m")."-".date("Y");
-$decripti="El Usuario ". $usuario. " identificado con el id ". $id. " hizo la orden el ". $fecha;
-$consultas="insert into dwejer2 values('$fecha', '$hora','$usuario', '$decripti')";
-	/*Ejecución de la inserción*/
-	$respuesta=consultas($consulta);
-
-        //valida que se haya insertado correctamente el registro
-        if ( $respuesta == 1  ){
-	
-     	  $sbCadena =  "<script language='javascript'>";
-          $sbCadena .= "alert(  'Datos Ingresad@ Correctamente ' )";
-     	  $sbCadena .= "</script>";
-     	  echo $sbCadena;
-		 
- 	  //retorna a la pagina anterior
-          $sbCadena = '<script>window.history.back();</script>';
-	  echo $sbCadena;  	
-        }
-	else{
-	
-	      $sbCadena =  "<script language='javascript'>";
-	      $sbCadena .= "alert(  'Error al Ingresar Datos, Verifique los Datos' )";
-       	      $sbCadena .= "</script>";
-              echo $sbCadena;
-		 
-	      //retorna a la pagina anterior
-	      $sbCadena = '<script>window.history.back();</script>';
-	      echo $sbCadena;  	
-    
+	/*Expresiï¿½n SQL para insertar datos en una tabla*/
+	$user = UserModel::getInstance($link)->getUserByEmail($usuario);
+	$datee = getdate();
+	//$hora = date("g - H - a");
+	$hora = date("H:g");
+	$fecha =  date("Y"). "-" .date("m"). "-" . date("d");
+	$descripti = "El Usuario " . $usuario . " identificado con el id " . $userId . " hizo la orden el " . $fecha;
+	$userId = 0;
+	if(empty($user)){
+		$userId = UserModel::getInstance($link)->addUser($fecha, $hora, $usuario, $descripti);		
+	}else{
+		$userId = $user->id;
 	}
-	/*Ejecución de la inserción*/
-	$respuestas=consultas($consultas);
+	$consulta = "insert into computadoras(user_id, processor, memoria, disco, tarjeta, board, valor) values('$userId', '$procesador', '$memoria', '$disco', '$tarjeta', '$board', $valor )";
+	//$consultas = "insert into usuarios values('$fecha', '$hora','$usuario', '$descripti')";
+	/*Ejecuciï¿½n de la inserciï¿½n*/
+	$respuesta = consultas($link, $consulta);
+	
+	//valida que se haya insertado correctamente el registro
+	if ($respuesta == 1) {
 
-        //valida que se haya insertado correctamente el registro
-        if ( $respuestas == 1  ){
-	
-     	  $sbCadenas =  "<script language='javascript'>";
-          $sbCadenas .= "alert(  'Datos Ingresad@ Correctamente ' )";
-     	  $sbCadenas .= "</script>";
-     	  echo $sbCadenas;
-		 
- 	  //retorna a la pagina anterior
-          $sbCadenas = '<script>window.history.back();</script>';
-	  echo $sbCadenas;  	
-        }
-	else{
-	
-	      $sbCadenas =  "<script language='javascript'>";
-	      $sbCadenas .= "alert(  'Error al Ingresar Datos, Verifique los Datos' )";
-       	      $sbCadenas .= "</script>";
-              echo $sbCadenas;
-		 
-	      //retorna a la pagina anterior
-	      $sbCadenas = '<script>window.history.back();</script>';
-	      echo $sbCadenas;  	
-    
+		$sbCadena =  "<script language='javascript'>";
+		$sbCadena .= "alert(  'Datos Ingresad@ Correctamente ' )";
+		$sbCadena .= "</script>";
+		echo $sbCadena;
+
+		//retorna a la pagina anterior
+		$sbCadena = '<script>window.history.back();</script>';
+		echo $sbCadena;
+	} else {
+
+		$sbCadena =  "<script language='javascript'>";
+		$sbCadena .= "alert(  \"Error al Ingresar Datos, Verifique los Datos\\n\"+\"".htmlspecialchars(mysqli_error($link))."\" )";
+		$sbCadena .= "</script>";
+		echo $sbCadena;
+
+		//retorna a la pagina anterior
+		$sbCadena = '<script>window.history.back();</script>';
+		echo $sbCadena;
 	}
-	
-	
+	/*Ejecuciï¿½n de la inserciï¿½n*/
+	$respuestas = $userId > 0 ? 1 : 0;
 
-	/*Función para desconectarse de la base de datos*/
-	desconectarse($link);//cierra la conexion
+	//valida que se haya insertado correctamente el registro
+	if ($respuestas == 1) {
+
+		$sbCadenas =  "<script language='javascript'>";
+		$sbCadenas .= "alert(  'Datos Ingresad@ Correctamente ' )";
+		$sbCadenas .= "</script>";
+		echo $sbCadenas;
+
+		//retorna a la pagina anterior
+		$sbCadenas = '<script>window.history.back();</script>';
+		echo $sbCadenas;
+	} else {
+
+		$sbCadenas =  "<script language='javascript'>";
+		$sbCadenas .= "alert(  \"Error al Ingresar Datos, Verifique los Datos\\n\"+\"".htmlspecialchars(mysqli_error($link))."\")";
+		$sbCadenas .= "</script>";
+		echo $sbCadenas;
+
+		//retorna a la pagina anterior
+		$sbCadenas = '<script>window.history.back();</script>';
+		echo $sbCadenas;
+	}
 
 
-?>
+
+	/*Funciï¿½n para desconectarse de la base de datos*/
+	desconectarse($link); //cierra la conexion
+
+
+	?>
 </BODY>
+
 </HTML>

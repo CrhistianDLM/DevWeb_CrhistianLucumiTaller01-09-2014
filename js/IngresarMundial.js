@@ -1,6 +1,46 @@
 //crea la funcion para  validar campos vacios 
-function validarIngreso(form){
-
+function validarIngreso(form, event){
+  //event.preventDefault();
+  //alert(form)
+  let validations = {
+    txtId: {
+      required: true,
+    },
+    txtUsu: {
+      required: true,
+      email: true,
+    },
+    txtPro: {
+      required: true,
+    },
+    txtMem: {
+      required: true,
+    },
+    txtDis: {
+      required: true,
+    },
+    txtTar: {
+      required: true,
+    },
+    txtBoa: {
+      required: true,
+    },
+    txtVal: {
+      required: true,
+    },
+  };
+  let invalidField = null;
+  let isValid = -1 == (Object.keys(validations).findIndex(field => {
+    let valid = approve.value(document.getElementById(field).value, validations[field]);
+    valid.field = field;
+    invalidField = valid;
+    return !valid.approved;
+  }));
+  if(invalidField.errors.length > 0){
+    alert("The field "+invalidField.field+" "+invalidField.errors.join(", "));
+  }
+  return isValid;
+  return false;
 
 
 }//fin de la funcion validarIngreso
