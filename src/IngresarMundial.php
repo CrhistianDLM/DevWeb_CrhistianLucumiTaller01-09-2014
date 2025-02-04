@@ -33,8 +33,8 @@
 	//$hora = date("g - H - a");
 	$hora = date("H:g");
 	$fecha =  date("Y"). "-" .date("m"). "-" . date("d");
-	$descripti = "El Usuario " . $usuario . " identificado con el id " . $userId . " hizo la orden el " . $fecha;
 	$userId = 0;
+	$descripti = "El Usuario " . $usuario ." hizo la orden el " . $fecha;
 	if(empty($user)){
 		$userId = UserModel::getInstance($link)->addUser($fecha, $hora, $usuario, $descripti);		
 	}else{
@@ -79,7 +79,7 @@
 		echo $sbCadenas;
 
 		//retorna a la pagina anterior
-		$sbCadenas = '<script>window.history.back();</script>';
+		$sbCadenas = '<script>window.location.href = "../frm/frmIngresarEstudiante.html";</script>';
 		echo $sbCadenas;
 	} else {
 

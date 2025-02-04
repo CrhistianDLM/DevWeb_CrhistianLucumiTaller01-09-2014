@@ -2,6 +2,16 @@
   <head>
     <script src="../js/IngresarMundial.js"></script>
     <title>Tienda de Computadores</title>
+    <style>
+      .main-image{
+        width: 400px;
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        margin-bottom: 10px;
+        border-radius: 8px;
+      }
+    </style>
   </head>
   <body
     background="../img/images.jpg"
@@ -18,10 +28,10 @@
       name="estudiante"
       onSubmit="return validarIngreso(this, event)"
     >
-      <center><b>Tienda de Computadores</b></center>
+      <center><h2>Tienda de Computadores</h2></center>
       <br />
 
-      <center><img src="../img/imagen1.jpg" width="400" height="400" /></center>
+      <center><img src="../img/imagen1.jpg" class="main-image" /></center>
 
       <table border="2" align="center">
         <tr>
