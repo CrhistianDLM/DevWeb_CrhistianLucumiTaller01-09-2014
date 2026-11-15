@@ -3,12 +3,14 @@
 ini_set('memory_limit','100M');
 ini_set('max_execution_time',0);
 
-define('FPDF_FONTPATH','../utils/fpdf/font/');
+define('FPDF_FONTPATH', '../utils/fpdf/font/');
 require('../utils/fpdf/fpdf.php');
 
 class MyFPDF extends FPDF
 {
-//Cabecera de página
+
+
+//Cabecera de pï¿½gina
 function Header()
 { 
     $this->SetFont('Arial','B',8);
@@ -22,14 +24,14 @@ function Header()
     //$this->Image('../img/logo.jpg',258,5,20); //derecha
 }
 
-//Pie de página
+//Pie de pï¿½gina
 function Footer()
 {
-    //Posición: a 1,5 cm del final
+    //Posiciï¿½n: a 1,5 cm del final
     $this->SetY(-15);
     //Arial italic 8
     $this->SetFont('Arial','I',8);
-    //Número de página
+    //Nï¿½mero de pï¿½gina
     $this->Cell(0,10,'Pagina '.$this->PageNo().'/{nb}',0,0,'C');
  }
  

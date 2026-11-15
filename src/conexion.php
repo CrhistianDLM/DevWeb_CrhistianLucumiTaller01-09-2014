@@ -1,7 +1,12 @@
 <?php
+	define("DB_NAME", "tienda_equipos");
+	define("DB_HOST", "localhost");
+	define("DB_USER", "devepweb");
+	define("DB_PASSWORD", "hA1I_!iX!QKl3v5/");
+
 	function ConectarseServidor()
 	{
-		if (!($link=mysqli_connect("localhost","devepweb","hA1I_!iX!QKl3v5/", null, 8889)))
+		if (!($link=mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, null, 8889)))
 		{
 			echo "Error conectando a la base de datos.";
 			exit();
@@ -12,7 +17,7 @@
 
 	function ConectarseBaseDatos($link)
 	{
-		if (!mysqli_select_db($link, "dbejemplo"))
+		if (!mysqli_select_db($link, DB_NAME))
 		{
 			echo "Error seleccionando la base de datos.";
 			exit();

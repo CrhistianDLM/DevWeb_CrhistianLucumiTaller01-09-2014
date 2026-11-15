@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
  //C�digo para incluir las librerias
  include_once("conexion.php");
  include('MyFPDF.php');
@@ -24,6 +26,7 @@
 
    //inclusi�n de rutinas para crear informes PDF
    $pdf=new MyFPDF();
+   $pdf->FPDF();
    $pdf->AddPage('P');
    $pdf->SetFont('Arial','B',11);
    $pdf->Cell(0,8,"Lista de Pedidos",0,0,'C',0);
@@ -37,7 +40,7 @@
 	$pdf->Cell(26,8,'Procesador',1,0,'C');	
 	$pdf->Cell(26,8,'Memoria',1,0,'C');	
 	$pdf->Cell(35,8,'Disco Duro',1,0,'C');	
-	$pdf->Cell(26,8,'Tarjeta De Video',1,0,'C');	
+	$pdf->Cell(26,8,'Tarj. Video',1,0,'C');	
 	$pdf->Cell(26,8,'Board',1,0,'C');	
 	$pdf->Cell(26,8,'Valor',1,1,'C');	
 
@@ -63,10 +66,10 @@
  	mysqli_free_result ($result);
 
     //genera el PDF en el Navegador
-  //  $pdf->Output();  
+  $pdf->Output();  
 
     //genera el PDF en un archivo
-    $pdf->Output("E:\ReporteDatos.pdf");  
+//*/    $pdf->Output("E:\ReporteDatos.pdf");  
 
 
 ?>
